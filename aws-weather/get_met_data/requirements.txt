@@ -1,0 +1,2 @@
+requests
+aws-embedded-metrics==1.0.2
