@@ -1,0 +1,46 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  aws-weather: uses cloudwatch to monitor the weather using met.ie data
+
+Parameters:
+  LocationName:
+    Type: String
+    Description: The default location to capture weather information
+    Default: 'DublinSouth'
+Globals:
+  Function:
+    Timeout: 10
+    Runtime: python3.7
+    Environment:
+      Variables:
+        LOCATION: !Ref LocationName
+Resources:
+  MetData:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: get_met_data/
+      Handler: app.lambda_handler
+      Runtime: python3.7
+      Events:
+        ScrapeEvent:
+          Type: Schedule
+          Properties:
+            Name: ScrapeEvent
+            Description: AWS Weather Dashboard
+            Enabled: true
+            Schedule: cron(*/30 * * * ? *)
+
+  #Outputs:
+  # ServerlessRestApi is an implicit API created out of Events key under Serverless::Function
+  # Find out more about other implicit resources you can reference within SAM
+  # https://github.com/awslabs/serverless-application-model/blob/master/docs/internals/generated_resources.rst#api
+#  HelloWorldApi:
+#    Description: "API Gateway endpoint URL for Prod stage for Hello World function"
+#    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/hello/"
+#  HelloWorldFunction:
+#    Description: "Hello World Lambda Function ARN"
+#    Value: !GetAtt HelloWorldFunction.Arn
+#  HelloWorldFunctionIamRole:
+#    Description: "Implicit IAM Role created for Hello World function"
+#    Value: !GetAtt HelloWorldFunctionRole.Arn
