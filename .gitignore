@@ -138,3 +138,4 @@ dmypy.json
 cython_debug/
 
 /aws-weather/samconfig.toml
+/aws_weather/samconfig.toml
