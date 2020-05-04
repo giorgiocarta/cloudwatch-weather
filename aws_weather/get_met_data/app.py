@@ -2,6 +2,13 @@ import json
 import requests
 from os import getenv
 from aws_embedded_metrics import metric_scope
+from aws_embedded_metrics.config import get_config
+
+Config = get_config()
+Config.service_name = "AwsWeather"
+Config.service_type = "LambdaScraper"
+Config.log_group_name = "AwsWeatherLogGroup"
+Config.log_stream_name = "AwsWeatherLogStream"
 
 met_metrics = [
     {
@@ -43,6 +50,7 @@ LOCATION = getenv('LOCATION', 'DublinSouth')
 def lambda_handler(event, context, metrics):
     """Sample pure Lambda function
     """
+    metrics.set_namespace("WeatherStation")
 
     try:
         page = requests.get(locations[LOCATION])
