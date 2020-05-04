@@ -16,6 +16,8 @@ cd cloudwatch-weather
 python3 -m venv .venv
 source .venv/bin/activate
 pip install -r requiremnts.txt
+pip install -e .
+pytest -s
 ```
 
 ## Deployment
@@ -34,3 +36,5 @@ cd aws-weather
 sam build --guided
 sam deploy
 ```
+
+
