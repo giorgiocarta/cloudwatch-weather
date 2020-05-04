@@ -2,8 +2,9 @@ import json
 
 import pytest
 
-from hello_world import app
+from aws-weather import app
 
+from
 
 @pytest.fixture()
 def apigw_event():
