@@ -1,7 +1,51 @@
 # cloudwatch-weather
 
-This application creates a cloudwatch dashboard for the monitoring
+This application creates a CloudWatch dashboard for the monitoring
 of the weather in Dublin.
+
+
+## Arch
+
+In a nutshell, the app uses a CloudWatch trigger, that every
+30 minutes invoke a lambda function.
+The lambda function collects weather metrics from met.ie, and
+pushes these metrics back to CloudWatch.
+
+The CloudFormation template provided also includes a CloudWatch dashboard
+displaying:
+1. Temperature
+2. Rainfall
+3. Pressure
+4. Humidity
+5. WindSpeed
+
+You could then add alarms if you want to be notified if certain weather conditions
+are recorded (e.g. send a email if wind are above a certain threshold)
+
+Below are a resource diagram created by the CF/SAM template: 
+```
+                             ┌──────────────────┐                              
+                             │      met.ie      │                              
+                             └─────────▲────────┘                              
+                                       │                                       
+                                       │                                       
+                                       │                                       
+┌─────────────────────┐      ┌──────────────────┐       ┌─────────────────────┐
+│                     │      │                  │       │                     │
+│  CloudWatch Event   ├──────▶      Lambda      ├───────▶     CloudWatch      │
+│   (every 30 mins)   │      │                  │       │       Metrics       │
+│                     │      │                  │       │                     │
+└─────────────────────┘      └──────────────────┘       └──────────▲──────────┘
+                                                                   │           
+                                                                   │           
+                                                                   │           
+                                                        ┌──────────┴──────────┐
+                                                        │                     │
+                                                        │     CloudWatch      │
+                                                        │      Dashboard      │
+                                                        │                     │
+                                                        └─────────────────────┘
+```
 
 ## Dashboard
 
