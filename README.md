@@ -5,7 +5,7 @@ of the weather in Dublin.
 
 ## Dashboard
 
-![screenshot](https://github.com/donedeal-giorgio/cloudwatch-weather/raw/master/docs/dublin_weather.png "Dashboard"")
+![screenshot](https://github.com/donedeal-giorgio/cloudwatch-weather/raw/master/docs/dublin_weather.png "Dashboard")
 
 ## Development
 Create a python3 virtual env with:
